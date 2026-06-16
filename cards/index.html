@@ -71,7 +71,10 @@ html,body{margin:0;padding:0;background:#8a8a8a;-webkit-print-color-adjust:exact
 /* ===== B-lite：窄螢幕（手機）可橫向平移看完整 A4，搭配原生雙指縮放。
    只在「螢幕 且 ≤820px」生效——桌面螢幕與列印都不符合條件、讀不到這段，故 A4 輸出與桌面檢視完全不變。 ===== */
 @media screen and (max-width:820px){
-  .stage{align-items:flex-start;width:max-content;padding:12px;}
+  .stage{align-items:flex-start;width:max-content;padding:64px 12px 12px;}
+  /* 篩選器釘在視窗（fixed 而非 sticky）：左右平移看卡時也固定在頂端、隨時可點。
+     收合狀態約 54px 高，stage 上方留 64px 讓首卡不被蓋；展開時暫時覆蓋頂部（屬下拉行為，可接受）。 */
+  #filters{position:fixed;top:0;left:0;right:0;}
 }
 </style>
 </head>
