@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特性板公版 · 列印（熱修窗）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#8a8a8a;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+@page{size:A4 portrait;margin:0;}
+.stage{padding:20px;display:flex;flex-direction:column;align-items:center;gap:22px;}
+.cap{font:500 13px/1 'Noto Sans TC',sans-serif;color:#fff;opacity:.9;}
+.page{position:relative;width:210mm;height:297mm;background:#fff;overflow:hidden;display:grid;grid-template-rows:repeat(2,1fr);box-shadow:0 4px 24px rgba(0,0,0,.35);}
+.cutline{position:absolute;left:0;right:0;top:50%;height:0;border-top:0.2mm dashed #b0b0b0;pointer-events:none;}
+
+/* ===== 特性板（橫式，半 A4 = 210×148.5mm） ===== */
+.tb{width:100%;height:100%;background:#fff;position:relative;overflow:hidden;color:#111;padding:3.5mm;font-family:'Noto Sans TC',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+.tb-frame{width:100%;height:100%;border:0.3mm solid #111;display:flex;flex-direction:column;padding:2.8mm;gap:2.6mm;overflow:hidden;}
+.tb-title{position:relative;background:#111;color:#fff;height:12mm;display:flex;align-items:center;gap:2.6mm;padding:0 3mm;flex:0 0 auto;font-family:'Noto Serif TC',serif;}
+.tb-mark{flex:0 0 auto;width:8.4mm;height:8.4mm;border-radius:50%;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;}
+.tb-mark span{font-size:17px;font-weight:700;line-height:1;}
+.tb-namewrap{flex:0 0 auto;display:flex;align-items:baseline;gap:2.4mm;min-width:0;}
+.tb-name{font-size:23px;font-weight:700;letter-spacing:3px;line-height:1;white-space:nowrap;}
+.tb-sub{font-family:'Noto Sans TC',sans-serif;font-size:8px;font-weight:500;letter-spacing:2px;line-height:1.2;color:#cfcfcf;white-space:nowrap;}
+.tb-spacer{flex:1;}
+.tb-code{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:1px;line-height:1;color:#bdbdbd;text-align:right;}
+.tb-body{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:row;gap:2.6mm;font-size:14px;line-height:1.5;color:#111;}
+.tb-colbase{flex:1.05 1 0;min-width:0;border:0.4mm solid #111;display:flex;flex-direction:column;}
+.tb-colbranch{flex:1 1 0;min-width:0;border:0.3mm solid #111;display:flex;flex-direction:column;}
+.tb-colhead{background:#111;color:#fff;display:flex;align-items:center;gap:0.7em;padding:0.4em 0.8em;font-family:'Noto Serif TC',serif;flex:0 0 auto;}
+.tb-colhead .lbl{flex:0 0 auto;font-size:0.62em;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;color:#bdbdbd;}
+.tb-colhead .ttl{font-weight:700;letter-spacing:1px;line-height:1.15;}
+.tb-tag{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:0.66em;font-weight:500;letter-spacing:0.5px;color:#111;background:#fff;padding:0.18em 0.5em;line-height:1;}
+.tb-fit{flex:1;min-height:0;overflow:hidden;padding:0.75em 0.9em;display:flex;flex-direction:column;justify-content:flex-start;gap:0.6em;}
+.tb-subblock{display:flex;flex-direction:column;gap:0.42em;}
+.tb-sublabel{font-family:'Noto Serif TC',serif;font-weight:700;line-height:1.2;border-bottom:0.2mm solid #111;padding-bottom:0.12em;}
+.tb-item{display:flex;gap:0.5em;align-items:baseline;}
+.tb-item .mk{flex:0 0 auto;font-family:'Noto Serif TC',serif;font-weight:700;}
+.tb-item .tx{flex:1;}
+
+#hot{position:fixed;bottom:10px;right:12px;z-index:9999;font:500 12px/1.3 'Noto Sans TC',sans-serif;color:#fff;background:#c0392b;padding:7px 11px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+#hot small{display:block;font-weight:400;opacity:.85;margin-top:3px;font-size:11px;}
+@media print{
+  html,body{background:#fff;}
+  .stage{padding:0;gap:0;}
+  .cap{display:none!important;}
+  #hot{display:none!important;}
+  .page{box-shadow:none;break-after:page;}
+  .page:last-of-type{break-after:auto;}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+
+<script>window.TRAITS=[{"name":"尤克莉絲","oneliner":"以召喚物來跟隨作戰","core":"孽血的殘響","base":{"title":"背叛者的命運，將由我的旋律裁決","subs":[{"label":"孽血的殘響","items":["① 你擁有**獨特召喚物** [[雷西斯|【雷西斯】]]，開場置於**自身格**。","② 你**生命上限的四分之一轉化**為【雷西斯】的生命上限（向下取整）。","③ 【雷西斯】死亡後，於【我方回合結束時】重生於自身格。"]},{"label":"召喚物：雷西斯","items":["基礎生命 ＝ 1 + 轉化的生命　｜　基礎移動 ＝ 3　｜　對抗門檻 ＝ 6","雷西斯｜特性：","① 你的基礎生命由[[尤克莉絲|【尤克莉絲】]]轉化而來。","② **跟隨**的單位**失去生命時**，可宣告**代替**其承受即將失去的生命，多餘的傷害**溢出**。","③與**我方單位**相疊時，可**跟隨**其**移動**、**瞬移**、**傳送**，且無法被宣告為攻擊目標。"]}]},"branches":[{"title":"代言","items":["**無聲的語者**","① 你的 **COST 上限為 6**。","② 施放具有【保留】詞綴的技能，由【雷西斯】做為技能起始點。","③ 你的**保留持續效果**套用於【雷西斯】跟隨的單位。"],"tag":"B1"},{"title":"守護","items":["① 轉化比例改為**生命上限的二分之一**。","② 擁有獨特技能【焚羽褪骨】。","**焚羽褪骨｜行動｜1C｜混合**","【雷西斯】以你的屬性對**範圍2內**的一名單位進行檢定（技+智）：","- 1：**無效果**","- 2：**失去** 1 點**生命**","- 3+：**失去** 2 點**生命**","【雷西斯】**恢復**等同於目標**失去的生命** × 2，溢出的**恢復**轉化為**臨時生命**。"],"tag":"B2"}]},{"name":"索瓦德","oneliner":"根據戰場切換自己更適合的作戰狀態","core":"蕤犄之血","base":{"title":"蕤犄傳說","subs":[{"label":"蕤犄之血","items":["你擁有**獨特狀態**【潶鯪】、【桑烸】、【倚蜚】；我方回合可切換一次；入場時是【潶鯪】。三種狀態分別給你不同的被動：","- 【潶鯪】：**對抗門檻 +1**","- 【桑烸】：**攻擊修正 +1**","- 【倚蜚】：**火線視為混合**"]}]},"branches":[{"title":"應勢","items":["可消耗 1 COST 觸發任一效果、並切換至對應狀態：","- 【潶鯪】：當你【受到致死傷害時】不會死亡，改為剩下 1 點生命。","- 【桑烸】：當你【造成檢定時】，使檢定獲得 1 顆額外骰、檢定優勢 +1。","- 【倚蜚】：當你【造成失敗時】，將其改為成功。"],"tag":"B1"},{"title":"沉勢","items":["若【我方回合結束時】你沒有切換獨特狀態，強化你當下的狀態，直至你切換為止：","- 【潶鯪】：**對抗門檻 +2**","- 【桑烸】：檢定**修正 +1**、檢定**優勢 +1**","- 【倚蜚】：你的**檢定改為你的任意屬性骰**"],"tag":"B2"}]},{"name":"喀帕斯克","oneliner":"不斷擲骰到更好的結果，依戰況選擇防禦或進攻、隨心所欲","core":"我行我素","base":{"title":"隨心所欲，無與倫比","subs":[{"label":"我行我素","items":["每當你【**進行檢定** 或 **受到檢定**】，你可**重擲其至多 1 顆骰子**，並決定是否保留新結果。"]}]},"branches":[{"title":"急流勇退","items":["**氣旋功夫！好耶！**","每當你【**進行檢定** 或 **受到檢定**】，待該**技能結束後**，你獲得**獨特狀態**【氣旋】；擁有【氣旋】時則無法獲得。","當你擁有【氣旋】時，可擇一，隨後解除【氣旋】：","① 進行檢定時 → **檢定優勢 +2**。","② 失去生命時 → **減少即將失去的生命**最多 1 點，隨後獲得**臨時生命 2**（可疊加）。"],"tag":"B1"},{"title":"逆來順受","items":["**氣旋功夫！好耶！**","你擁有【氣旋·順】或【氣旋·逆】，入場隨機其一；兩者不會並存。","- 每當你【造成大成功時】→【氣旋·逆】。","- 每當你【受到失敗時】→【氣旋·順】。","**逆來順受**","① 處於【氣旋·順】時，檢定額外附加 1 技巧骰與 1 智慧骰；擲骰後移除其中骰值最低的 1 顆，以其餘骰結算。","② 處於【氣旋·逆】時，你受到檢定時可重擲其骰最多 2 次（每次 1 顆），你決定是否保留。"],"tag":"B2"}]},{"name":"普米","oneliner":"陣地戰角色","core":"仙女環","base":{"title":"聽那菌菇們的低語","subs":[{"label":"仙女環","items":["①【我方回合開始時】**範圍2內**的**任意其他**單位獲得**獨特狀態**【孢子寄生】，若其本來就擁有【孢子寄生】則**失去 1 點生命**。","② 擁有【孢子寄生】的單位離開你的**範圍2**即解除【孢子寄生】。"]}]},"branches":[{"title":"深根","items":["① 【我方回合開始時】每個擁有【孢子寄生】的單位使你**恢復** 1 點**生命**和獲得**臨時生命1**；臨時生命可疊加。","② 敵方單位**欲離開**仙女環的影響範圍 → 基礎移動消耗 +1；基礎移動不夠則**無法離開**。"],"tag":"B1"},{"title":"蔓延","items":["① **【仙女環】的範圍 +1**；【孢子寄生】不再於【我方回合開始時】造成**失去生命**。","② 【孢子寄生】可進行疊加、**最高 3 層**；你也可宣告消耗 1 COST，對範圍內一名單位額外累積 1 層。","③ 你對擁有【孢子寄生】的單位**檢定時**依層數**累加**：L≥1 修正 +1；L≥2 優勢 +1；L≥3 附加 1 顆額外的技巧或智慧骰。"],"tag":"B2"}]},{"name":"無名","oneliner":"透過星辰作戰","core":"星辰","base":{"title":"與星辰同行","subs":[{"label":"星辰","items":["你擁有**獨特地標**【星辰】，開場置於**自身格**；星辰**每個我方回合可移動最多 1 格**。","若【星辰】位於你的**範圍2**，你的技能可**由【星辰】做為技能起始點**。","【星辰】擁有以下特性：","① **移動時**不受地形影響、可穿越高地線；可與單位**相疊**，沒有掩體特性。","② 當其**位於你的自身格**時，你**移動**、**瞬移**或**傳送**時它都會**跟隨**於你。"]}]},"branches":[{"title":"挑遠","items":["① 星辰改為**無法自主移動**；你可自由將你的**基礎移動**分配給它作為移動使用。","② 可於**星辰位置施放技能的範圍**改為**範圍3**。"],"tag":"B1"},{"title":"微操","items":["① 星辰移動改為**每個我方回合最多 3 格**。","② 可於**星辰位置施放技能的範圍**改為**範圍1**。","③ 你**不能自己施放技能**，技能只能由星辰代為施放。"],"tag":"B2"}]},{"name":"鴉","oneliner":"有無限的流派選擇，樣樣通、樣樣鬆","core":"巢群個體／巢痕適配","base":{"title":"風群思維","subs":[{"label":"巢群個體","items":["① 你的**體質**、**技巧**、**智慧**、**意志**固定在 4","② 你的**基礎生命** ＝ 11","③ 你的**對抗門檻** ＝ 7"]},{"label":"巢痕適配","items":["① 每當你【擲骰時】**任一骰改為 12 面骰**。","② 你的額外骰第一顆是 **6 面骰**、第二顆是 **8 面骰**、第三顆是 **10 面骰**，之後都是 **12 面骰**","③ 你**沒有備戰區**"]}]},"branches":[{"title":"全知全能","items":["① 額外獲得2格公開區","② 開場公開區全部【遺忘】","③ 技能進公開區【遺忘】","④ 回憶3張","⑤ 震撼時改回憶1張"],"tag":"B1"},{"title":"觀、聽、行","items":["① 手牌與公開區各減少 1 格","② 擁有獨特技能【動態捕捉】","**動態捕捉｜行動｜0C｜自身**","你可以施放場上任一單位公開區的技能卡。（遺忘、保留、祕密除外）"],"tag":"B2"}]}];</script>
+<script>
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+function parseInline(str){
+  if(str==null)return[];
+  str=String(str)
+    .replace(/\[\[[^\]|]+\|([^\]]+)\]\]/g,'$1')   // [[目標|別名]] → 別名
+    .replace(/\[\[([^\]]+)\]\]/g,'$1')            // [[目標]] → 目標
+    .replace(/\\([+\-|()\[\]])/g,'$1');           // 去 markdown 轉義
+  var out=[];
+  str.split('**').forEach(function(part,i){
+    var bb=i%2===1;
+    part.split(/(【[^】]*】)/).forEach(function(s){
+      if(!s)return;var kw=/^【[^】]*】$/.test(s);var b=bb||kw;out.push({t:s,b:b});
+    });
+  });
+  return out;
+}
+function segs(s){return parseInline(s).map(function(g){return g.b?'<b>'+esc(g.t)+'</b>':'<span>'+esc(g.t)+'</span>';}).join('');}
+function itemHtml(line){
+  var m=/^\s*([①②③④⑤⑥⑦⑧⑨])\s*/.exec(line);
+  if(m)return'<div class="tb-item"><span class="mk">'+esc(m[1])+'</span><div class="tx">'+segs(line.slice(m[0].length))+'</div></div>';
+  var d=/^\s*[-－]\s+/.exec(line);
+  if(d)return'<div class="tb-item"><span class="mk">·</span><div class="tx">'+segs(line.slice(d[0].length))+'</div></div>';
+  return'<div class="tb-item"><div class="tx">'+segs(line)+'</div></div>';
+}
+function itemsHtml(lines){return(lines||[]).map(itemHtml).join('');}
+
+function boardHtml(trait,branch){
+  var roleMark=(trait.name||'◆').slice(0,1);
+  var sub=trait.oneliner||'特性板';
+  var base=trait.base||{title:'',subs:[]};
+  var baseInner=(base.subs||[]).map(function(s){
+    return'<div class="tb-subblock"><div class="tb-sublabel">'+esc(s.label)+'</div>'+itemsHtml(s.items)+'</div>';
+  }).join('');
+  var branchInner=branch?(
+    '<div class="tb-colhead"><span class="tb-tag">'+esc(branch.tag)+'</span><span class="lbl">分支</span><span class="ttl">'+esc(branch.title)+'</span></div>'+
+    '<div class="tb-fit" data-fitblock>'+itemsHtml(branch.items)+'</div>'
+  ):'<div class="tb-colhead"><span class="lbl">分支</span></div><div class="tb-fit" data-fitblock></div>';
+  return'<div class="tb"><div class="tb-frame">'
+    +'<div class="tb-title"><div class="tb-mark"><span>'+esc(roleMark)+'</span></div>'
+    +'<div class="tb-namewrap"><div class="tb-name">'+esc(trait.name||'')+'</div><div class="tb-sub">'+esc(sub)+'</div></div>'
+    +'<div class="tb-spacer"></div><div class="tb-code">'+esc(branch?('路線 '+branch.tag):'')+'</div></div>'
+    +'<div class="tb-body">'
+    +'<div class="tb-colbase"><div class="tb-colhead"><span class="lbl">特性</span><span class="ttl">'+esc(base.title)+'</span></div><div class="tb-fit" data-fitblock>'+baseInner+'</div></div>'
+    +'<div class="tb-colbranch">'+branchInner+'</div>'
+    +'</div></div></div>';
+}
+function pageHtml(trait){
+  var b=trait.branches||[];
+  return'<div class="page">'+boardHtml(trait,b[0]||null)+boardHtml(trait,b[1]||null)+'<div class="cutline"></div></div>';
+}
+
+var TRAITS=(window.TRAITS||[]);
+var stage=document.getElementById('stage');
+var html='';
+TRAITS.forEach(function(t,i){
+  html+='<div class="cap">第 '+(i+1)+' / '+TRAITS.length+' 張 A4　·　'+esc(t.name)+'（上＝A＋B1、下＝A＋B2）</div>';
+  html+=pageHtml(t);
+});
+if(!TRAITS.length)html='<div class="cap">讀不到特性</div>';
+stage.innerHTML=html;
+
+function fitAll(){
+  Array.prototype.forEach.call(document.querySelectorAll('.tb-body'),function(body){
+    var fs=14;body.style.fontSize=fs+'px';
+    var blocks=body.querySelectorAll('[data-fitblock]');
+    function over(){for(var i=0;i<blocks.length;i++){if(blocks[i].scrollHeight>blocks[i].clientHeight+0.5)return true;}return false;}
+    var g=160;
+    while(over()&&fs>8&&g-->0){fs-=0.2;body.style.fontSize=fs+'px';}
+  });
+}
+fitAll();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll);}
+setTimeout(fitAll,400);setTimeout(fitAll,1200);
+window.addEventListener('resize',fitAll);
+window.addEventListener('beforeprint',fitAll);
+</script>
+
+</body>
+</html>

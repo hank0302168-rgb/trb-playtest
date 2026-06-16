@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>骰吧 · 內測列印工具</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;min-height:100vh;background:#1c1c1f;color:#e9e9ec;
+  font-family:'Noto Sans TC',system-ui,sans-serif;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px;padding:40px 20px;}
+.brand{text-align:center;}
+.brand h1{margin:0;font:700 30px/1.2 'Noto Serif TC',serif;letter-spacing:2px;}
+.brand p{margin:10px 0 0;font-size:14px;color:#9a9aa2;letter-spacing:1px;}
+.tools{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;width:100%;max-width:680px;}
+.tool{flex:1 1 260px;text-decoration:none;color:inherit;
+  background:#26262b;border:1px solid #3a3a42;border-radius:14px;padding:28px 26px;
+  transition:transform .12s ease,border-color .12s ease,background .12s ease;}
+.tool:hover{transform:translateY(-3px);border-color:#6b6bff;background:#2c2c34;}
+.tool .t{font:700 20px/1.2 'Noto Serif TC',serif;margin-bottom:8px;}
+.tool .d{font-size:13.5px;line-height:1.7;color:#a9a9b2;}
+.tool .go{margin-top:16px;font-size:13px;color:#8c8cff;font-weight:500;}
+.foot{font-size:12px;color:#65656d;text-align:center;line-height:1.7;}
+</style>
+</head>
+<body>
+  <div class="brand">
+    <h1>骰吧 · 內測列印工具</h1>
+    <p>The Roll Bar — Playtest Print Kit</p>
+  </div>
+  <div class="tools">
+    <a class="tool" href="cards/">
+      <div class="t">卡牌列印</div>
+      <div class="d">技能卡與被召喚單位卡面。A4 橫向 4×2，附即時篩選（卡牌／火線／狀態效果／機制）。</div>
+      <div class="go">開啟 →</div>
+    </a>
+    <a class="tool" href="traits/">
+      <div class="t">特性列印</div>
+      <div class="d">角色特性板。A4 直式、一個特性一頁，中線可裁。</div>
+      <div class="go">開啟 →</div>
+    </a>
+  </div>
+  <div class="foot">內部測試用 · 請勿外流連結<br>列印時建議用 Chrome，邊界設「無」、背景圖形開啟</div>
+</body>
+</html>
