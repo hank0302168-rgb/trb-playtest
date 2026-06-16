@@ -65,6 +65,11 @@ html,body{margin:0;padding:0;background:#8a8a8a;-webkit-print-color-adjust:exact
   .sheet{box-shadow:none;break-after:page;}
   .sheet:last-of-type{break-after:auto;}
 }
+/* ===== B-lite：窄螢幕（手機）可橫向平移看完整 A4，搭配原生雙指縮放。
+   只在「螢幕 且 ≤820px」生效——桌面螢幕與列印都不符合條件、讀不到這段，故 A4 輸出與桌面檢視完全不變。 ===== */
+@media screen and (max-width:820px){
+  .stage{align-items:flex-start;width:max-content;padding:12px;}
+}
 </style>
 </head>
 <body>
