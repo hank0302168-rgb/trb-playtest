@@ -26,6 +26,9 @@ html,body{margin:0;padding:0;background:#8a8a8a;-webkit-print-color-adjust:exact
 .chip:hover{border-color:#9a9a9a;}
 .chip.on{background:#ececec;color:#111;border-color:#ececec;font-weight:500;}
 .chip .c{opacity:.5;margin-left:4px;font-size:11px;}
+#ftoggle{margin-left:auto;cursor:pointer;font-size:12px;color:#9cf;user-select:none;padding:3px 9px;border:1px solid #5a5a5a;border-radius:13px;white-space:nowrap;}
+#ftoggle:hover{border-color:#9a9a9a;}
+#filters.collapsed .row:not(#fhead){display:none;}
 
 /* ===== 卡片公版（風格 B） ===== */
 .cb{width:100%;height:100%;background:#fff;position:relative;overflow:hidden;color:#111;padding:2.5mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
@@ -74,7 +77,7 @@ html,body{margin:0;padding:0;background:#8a8a8a;-webkit-print-color-adjust:exact
 </head>
 <body>
 <div id="filters">
-  <div class="row"><span id="fcount"></span><span id="fclear">清除篩選</span></div>
+  <div class="row" id="fhead"><span id="fcount"></span><span id="fclear">清除篩選</span><span id="ftoggle"></span></div>
   <div class="row"><span class="lbl">卡牌</span><span id="g-type"></span></div>
   <div class="row"><span class="lbl">火線</span><span id="g-fire"></span></div>
   <div class="row"><span class="lbl">狀態效果</span><span id="g-status"></span></div>
@@ -197,6 +200,14 @@ document.getElementById('fclear').addEventListener('click',function(){
   Array.prototype.forEach.call(document.querySelectorAll('#filters .chip.on'),function(c){c.classList.remove('on');});
   applyFilter();
 });
+/* 可收合篩選器：手機預設收合成一行（只留計數＋清除＋展開鈕），點 toggle 展開/收合 chip 列。列印不受影響（篩選器在 @media print 已隱藏）。 */
+(function(){
+  var filters=document.getElementById('filters'),toggle=document.getElementById('ftoggle');
+  function setArrow(){toggle.textContent=filters.classList.contains('collapsed')?'篩選 ▾':'篩選 ▴';}
+  toggle.addEventListener('click',function(){filters.classList.toggle('collapsed');setArrow();});
+  if(matchMedia('screen and (max-width:820px)').matches)filters.classList.add('collapsed');
+  setArrow();
+})();
 
 applyFilter();
 if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll);}
