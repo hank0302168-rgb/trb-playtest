@@ -20,6 +20,7 @@ html,body{margin:0;padding:0;min-height:100vh;background:#1c1c1f;color:#e9e9ec;
 .tool{flex:1 1 260px;text-decoration:none;color:inherit;
   background:#26262b;border:1px solid #3a3a42;border-radius:14px;padding:28px 26px;
   transition:transform .12s ease,border-color .12s ease,background .12s ease;}
+.tool.wide{flex:1 1 100%;}
 .tool:hover{transform:translateY(-3px);border-color:#6b6bff;background:#2c2c34;}
 .tool .t{font:700 20px/1.2 'Noto Serif TC',serif;margin-bottom:8px;}
 .tool .d{font-size:13.5px;line-height:1.7;color:#a9a9b2;}
@@ -33,6 +34,11 @@ html,body{margin:0;padding:0;min-height:100vh;background:#1c1c1f;color:#e9e9ec;
     <p>The Roll Bar — Playtest Kit</p>
   </div>
   <div class="tools">
+    <a class="tool wide" href="read/">
+      <div class="t">卡牌閱讀</div>
+      <div class="d">手機讀卡模式：放大字、統一卡框、1–2 直欄、即時篩選。不是列印用。</div>
+      <div class="go">開啟 →</div>
+    </a>
     <a class="tool" href="cards/">
       <div class="t">卡牌列印</div>
       <div class="d">技能卡與被召喚單位卡面。A4 橫向 4×2，附即時篩選（卡牌／火線／狀態效果／機制）。</div>
@@ -41,11 +47,6 @@ html,body{margin:0;padding:0;min-height:100vh;background:#1c1c1f;color:#e9e9ec;
     <a class="tool" href="traits/">
       <div class="t">特性列印</div>
       <div class="d">角色特性板。A4 直式、一個特性一頁，中線可裁。</div>
-      <div class="go">開啟 →</div>
-    </a>
-    <a class="tool" href="read/">
-      <div class="t">卡牌閱讀</div>
-      <div class="d">手機讀卡模式：放大字、統一卡框、1–2 直欄、即時篩選。不是列印用。</div>
       <div class="go">開啟 →</div>
     </a>
   </div>
